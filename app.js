@@ -1,35 +1,61 @@
+require('dotenv').config();
+
+// Mongoose
+const mongoose = require('mongoose');
+mongoose.connect(process.env.DB_URI, {
+  auth: {
+    user: process.env.DB_USER,
+    password: process.env.DB_PASS
+  },
+  useNewUrlParser: true
+}).catch(err => console.error(`ERROR: ${err}`));
+// End Mongoose
+
 const express = require('express');
+const path = require('path');
 
 const app = express();
 
-app.get('/', (req, res) => {
-    res.send(`<h3>Table of Content</h3>
-    <table >
-    <tr>
-      <td>/</td>
-      <td> - </td>
-      <td>Index</td> 
-    </tr>
-    <tr>
-      <td>/about</td>
-      <td> - </td>
-      <td>Information about me</td> 
-    </tr>
-    <tr>
-      <td>/contact</td>
-      <td> - </td>
-      <td>That's how you can contact me</td>
-    </tr>
-  </table>` );
+// Adding cookies and support to our app
+const cookieParser = require('cookie-parser');
+const session = require('express-session');
+const flash = require('connect-flash');
+app.use(cookieParser());
+app.use(session({
+  secret: (process.env.secret || 'Europe'),
+  cookie: {
+    maxAge: 10800000
+  },
+  resave: true,
+  saveUninitialized: true
+}));
+app.use(flash());
+app.use((req, res, next) => {
+  res.locals.flash = res.locals.flash || {};
+  res.locals.flash.success = req.flash('success') || null;
+  res.locals.flash.error = req.flash('error') || null; 
+
+  next();
 });
 
-app.get('/about', (req, res) => {
-    res.send(`Hello! My name is Karankumar Patel. I am a mechanical engineer and a computer programmer as well.`);
-});
+// Body Parser
+const bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({
+  extended: true
+}));
+// End Parser
 
-app.get('/contact', (req, res) => {
-    res.send(`You can call send me mail on 200350059@student.georgianc.on.ca or call me anytime on +17058960219.`);
-});
+// Our views path
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'pug');
+app.use('/css', express.static('assets/stylesheets'));
+app.use('/js', express.static('assets/javascripts'));
+app.use('/images', express.static('assets/images'));
 
-const port = process.env.PORT || 2000;
-app.listen(port, () => console.log(`It is port ${port}`));
+// Our routes
+const routes = require('./routes.js');
+app.use('/', routes);
+
+const port = (process.env.PORT || 4000);
+app.listen(port, () => console.log(`Listening on ${port}`));
