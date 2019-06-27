@@ -9,7 +9,8 @@ exports.index = (req, res) => {
       });
     })
     .catch(err => {
-      console.error(`ERROR: ${err}`);dr
+      req.flash('error', `ERROR: ${err}`);
+      res.redirect('/');
     });
 };
 
@@ -22,7 +23,8 @@ exports.show = (req, res) => {
     });
   })
   .catch(err => {
-    console.error(`ERROR: ${err}`);
+    req.flash('error', `ERROR: ${err}`);
+    res.redirect('/');
   });
 };
 
@@ -41,17 +43,20 @@ exports.edit = (req, res) => {
     });
   })
   .catch(err => {
-    console.error(`ERROR: ${err}`);
+    req.flash('error', `ERROR: ${err}`);
+    res.redirect('/');
   });
 };
 
 exports.create = (req, res) => {
   Act.create(req.body.act)
     .then(() => {
+      req.flash('success', 'New activity was added successfully.');
       res.redirect('/acts');
     })
     .catch(err => {
-      console.error(`ERROR: ${err}`);
+      req.flash('error', `ERROR: ${err}`);
+      res.redirect('/acts/new');
     });
 };
 
@@ -62,10 +67,12 @@ exports.update = (req, res) => {
     runValidators: true
   })
   .then(() => {
+    req.flash('success', 'The activity was updated successfully.');
     res.redirect(`/acts/${req.body.id}`);
   })
   .catch(err => {
-    console.error(`ERROR: ${err}`);
+    req.flash('error', `ERROR: ${err}`);
+    res.redirect(`/acts/${req.body.id}/edit`);
   });
 };
 
@@ -74,10 +81,12 @@ exports.destroy = (req, res) => {
     _id: req.body.id
   })
   .then(() => {
+    req.flash('success', 'The activity was deleted successfully.');
     res.redirect('/acts');
   })
   .catch(err => {
-    console.error(`ERROR: ${err}`);
+    req.flash('error', `ERROR: ${err}`);
+    res.redirect(`/acts`);
   });
 };
 
@@ -92,7 +101,8 @@ exports.pendings = (req, res) => {
       });
     })
     .catch(err => {
-      console.error(`ERROR: ${err}`);
+      req.flash('error', `ERROR: ${err}`);
+      res.redirect('/');
     });
 };
 
@@ -105,6 +115,7 @@ exports.accomplished = (req, res) => {
       });
     })
     .catch(err => {
-      console.error(`ERROR: ${err}`);
+      req.flash('error', `ERROR: ${err}`);
+      res.redirect('/');
     });
 };
