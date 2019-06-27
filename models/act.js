@@ -20,15 +20,15 @@ const ActSchema = new mongoose.Schema({
 });
 
 //Query Helper
-ActSchema.query.drafts = function() {
+ActSchema.query.pendings = function() {
   return this.where({
-    status: 'DRAFT'
+    status: 'PENDING'
   });
 }; 
 
-ActSchema.query.published = function() {
+ActSchema.query.accomplished = function() {
   return this.where({
-    status: 'PUBLISHED'
+    status: 'ACCOMPLISHED'
   });
 }; 
 

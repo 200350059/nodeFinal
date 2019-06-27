@@ -5,11 +5,11 @@ exports.index = (req, res) => {
     .then(acts => {
       res.render('acts/index', {
         acts: acts,
-        title: 'Archive'
+        title: 'TO DO List'
       });
     })
     .catch(err => {
-      console.error(`ERROR: ${err}`);
+      console.error(`ERROR: ${err}`);dr
     });
 };
 
@@ -83,12 +83,12 @@ exports.destroy = (req, res) => {
 
 
 // To fil in later
-exports.drafts = (req, res) => {
-  Act.find().drafts()
+exports.pendings = (req, res) => {
+  Act.find().pendings()
     .then(acts => {
       res.render('acts/index', {
         acts: acts,
-        title: 'Drafts'
+        title: 'Pendings'
       });
     })
     .catch(err => {
@@ -96,12 +96,12 @@ exports.drafts = (req, res) => {
     });
 };
 
-exports.published = (req, res) => {
-  Act.find().published()
+exports.accomplished = (req, res) => {
+  Act.find().accomplished()
     .then(acts => {
       res.render('acts/index', {
         acts: acts,
-        title: 'Published' 
+        title: 'Accomplished' 
       });
     })
     .catch(err => {
