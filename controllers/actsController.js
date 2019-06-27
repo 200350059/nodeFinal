@@ -1,10 +1,10 @@
-const Blog = require('../models/blog');
+const Act = require('../models/act');
 
 exports.index = (req, res) => {
-  Blog.find()
-    .then(blogs => {
-      res.render('blogs/index', {
-        blogs: blogs,
+  Act.find()
+    .then(acts => {
+      res.render('acts/index', {
+        acts: acts,
         title: 'Archive'
       });
     })
@@ -14,11 +14,11 @@ exports.index = (req, res) => {
 };
 
 exports.show = (req, res) => {
-  Blog.findById(req.params.id)
-  .then(blog => {
-    res.render('blogs/show', {
-      blog: blog,
-      title: blog.title,
+  Act.findById(req.params.id)
+  .then(act => {
+    res.render('acts/show', {
+      act: act,
+      title: act.title,
     });
   })
   .catch(err => {
@@ -27,17 +27,17 @@ exports.show = (req, res) => {
 };
 
 exports.new = (req, res) => {
-  res.render('blogs/new', {
-    title: 'New Blog Post'
+  res.render('acts/new', {
+    title: 'New Act Post'
   });
 };
 
 exports.edit = (req, res) => {
-  Blog.findById(req.params.id)
-  .then(blog => {
-    res.render('blogs/edit', {
-      blog: blog,
-      title: blog.title,
+  Act.findById(req.params.id)
+  .then(act => {
+    res.render('acts/edit', {
+      act: act,
+      title: act.title,
     });
   })
   .catch(err => {
@@ -46,9 +46,9 @@ exports.edit = (req, res) => {
 };
 
 exports.create = (req, res) => {
-  Blog.create(req.body.blog)
+  Act.create(req.body.act)
     .then(() => {
-      res.redirect('/blogs');
+      res.redirect('/acts');
     })
     .catch(err => {
       console.error(`ERROR: ${err}`);
@@ -56,13 +56,13 @@ exports.create = (req, res) => {
 };
 
 exports.update = (req, res) => {
-  Blog.updateOne({
+  Act.updateOne({
     _id: req.body.id
-  }, req.body.blog, {
+  }, req.body.act, {
     runValidators: true
   })
   .then(() => {
-    res.redirect(`/blogs/${req.body.id}`);
+    res.redirect(`/acts/${req.body.id}`);
   })
   .catch(err => {
     console.error(`ERROR: ${err}`);
@@ -70,11 +70,11 @@ exports.update = (req, res) => {
 };
 
 exports.destroy = (req, res) => {
-  Blog.deleteOne({
+  Act.deleteOne({
     _id: req.body.id
   })
   .then(() => {
-    res.redirect('/blogs');
+    res.redirect('/acts');
   })
   .catch(err => {
     console.error(`ERROR: ${err}`);
@@ -84,10 +84,10 @@ exports.destroy = (req, res) => {
 
 // To fil in later
 exports.drafts = (req, res) => {
-  Blog.find().drafts()
-    .then(blogs => {
-      res.render('blogs/index', {
-        blogs: blogs,
+  Act.find().drafts()
+    .then(acts => {
+      res.render('acts/index', {
+        acts: acts,
         title: 'Drafts'
       });
     })
@@ -97,10 +97,10 @@ exports.drafts = (req, res) => {
 };
 
 exports.published = (req, res) => {
-  Blog.find().published()
-    .then(blogs => {
-      res.render('blogs/index', {
-        blogs: blogs,
+  Act.find().published()
+    .then(acts => {
+      res.render('acts/index', {
+        acts: acts,
         title: 'Published' 
       });
     })

@@ -13,14 +13,14 @@ block content
             th Actions
         
         tbody
-          each blog in blogs
+          each act in acts
             tr
               td
-                a(href=`/blogs/${blog.id}`)= blog.title
-              td= blog.status
+                a(href=`/acts/${act.id}`)= act.title
+              td= act.status
               td
-                a(href=`/blogs/${blog.id}/edit`) edit
+                a(href=`/acts/${act.id}/edit`) edit
                 = " | "
-                form.destroy(action="/blogs/destroy", method="POST", onsubmit='return confirm("Really?");')
-                  input(type="hidden", name="id", value=blog.id)
+                form.destroy(action="/acts/destroy", method="POST", onsubmit='return confirm("Really?");')
+                  input(type="hidden", name="id", value=act.id)
                   input(type="submit", value="delete")

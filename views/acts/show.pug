@@ -1,0 +1,9 @@
+extends ../layouts/main.pug
+block content
+  .container
+    header
+      h1= act.title
+      small= act.status.toLowerCase()
+
+    div
+      = act.content || "Your activity is processing..."

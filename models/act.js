@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 // Our Schema
-const BlogSchema = new mongoose.Schema({
+const ActSchema = new mongoose.Schema({
   title: {
     type: String,
     required: true
@@ -12,24 +12,24 @@ const BlogSchema = new mongoose.Schema({
   },
   status: {
     type: String,
-    enum: ['DRAFT', 'PUBLISHED'],
-    default: 'DRAFT'
+    enum: ['PENDING', 'ACCOMPLISHED'],
+    default: 'PENDING'
   }
 }, {
   timestamps: true
 });
 
 //Query Helper
-BlogSchema.query.drafts = function() {
+ActSchema.query.drafts = function() {
   return this.where({
     status: 'DRAFT'
   });
 }; 
 
-BlogSchema.query.published = function() {
+ActSchema.query.published = function() {
   return this.where({
     status: 'PUBLISHED'
   });
 }; 
 
-module.exports = mongoose.model('Blog', BlogSchema);
+module.exports = mongoose.model('Act', ActSchema);

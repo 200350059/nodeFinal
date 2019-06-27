@@ -1,0 +1,21 @@
+
+form(action=(act ? "/acts/update" : "/acts"), method="POST")
+    if act
+        input(type="hidden", name="id", value=act.id)
+    .form-group
+        label Title
+        input.form-control(name="act[title]", required, value=(act ? act.title : null))
+
+    .form-group
+        label Content
+        textarea.form-control(name="act[content]")
+            = act ? act.content : null
+
+    .form-group
+        label Status
+        select.form-control(name="act[status]", required)
+            each status in ['PENDING', 'ACCOMPLISHED']
+                option(value=status, selected=(act && act.status === status))= status.toLowerCase()
+        
+    .form-group
+        button.btn.btn-dark(type="submit") Submit
