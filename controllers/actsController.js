@@ -1,7 +1,12 @@
 const Act = require('../models/act');
 
 exports.index = (req, res) => {
-  Act.find()
+  req.isAuthenticated();
+
+  Act.find({
+    user: req.session.userId
+  })
+  .populate('user')
     .then(acts => {
       res.render('acts/index', {
         acts: acts,
@@ -15,7 +20,12 @@ exports.index = (req, res) => {
 };
 
 exports.show = (req, res) => {
-  Act.findById(req.params.id)
+  req.isAuthenticated();
+
+  Act.findOne({
+    _id: req.params.id,
+    user: req.session.userId
+  })
   .then(act => {
     res.render('acts/show', {
       act: act,
@@ -29,13 +39,20 @@ exports.show = (req, res) => {
 };
 
 exports.new = (req, res) => {
+  req.isAuthenticated();
+
   res.render('acts/new', {
     title: 'New Act Post'
   });
 };
 
 exports.edit = (req, res) => {
-  Act.findById(req.params.id)
+  req.isAuthenticated();
+
+  Act.findOne({
+    _id: req.params.id,
+    user: req.session.userId
+  })
   .then(act => {
     res.render('acts/edit', {
       act: act,
@@ -49,6 +66,9 @@ exports.edit = (req, res) => {
 };
 
 exports.create = (req, res) => {
+  req.isAuthenticated();
+
+  req.body.act.user = req.session.userId;
   Act.create(req.body.act)
     .then(() => {
       req.flash('success', 'New activity was added successfully.');
@@ -61,8 +81,11 @@ exports.create = (req, res) => {
 };
 
 exports.update = (req, res) => {
+  req.isAuthenticated();
+
   Act.updateOne({
-    _id: req.body.id
+    _id: req.body.id,
+    user: req.session.userId
   }, req.body.act, {
     runValidators: true
   })
@@ -77,8 +100,11 @@ exports.update = (req, res) => {
 };
 
 exports.destroy = (req, res) => {
+  req.isAuthenticated();
+
   Act.deleteOne({
-    _id: req.body.id
+    _id: req.body.id,
+    user: req.session.userId
   })
   .then(() => {
     req.flash('success', 'The activity was deleted successfully.');
@@ -93,7 +119,12 @@ exports.destroy = (req, res) => {
 
 // To fil in later
 exports.pendings = (req, res) => {
-  Act.find().pendings()
+  req.isAuthenticated();
+
+  Act.find({
+    user: req.session.userId
+  }).pendings()
+  .populate('user')
     .then(acts => {
       res.render('acts/index', {
         acts: acts,
@@ -107,7 +138,12 @@ exports.pendings = (req, res) => {
 };
 
 exports.accomplished = (req, res) => {
-  Act.find().accomplished()
+  req.isAuthenticated();
+  
+  Act.find({
+    user: req.session.userId
+  }).accomplished()
+  .populate('user')
     .then(acts => {
       res.render('acts/index', {
         acts: acts,

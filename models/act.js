@@ -14,6 +14,11 @@ const ActSchema = new mongoose.Schema({
     type: String,
     enum: ['PENDING', 'ACCOMPLISHED'],
     default: 'PENDING'
+  },
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
   }
 }, {
   timestamps: true
