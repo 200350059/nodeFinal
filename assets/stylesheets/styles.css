@@ -45,3 +45,26 @@ body {
   text-decoration: underline;
   color: #0056b3;
 }
+
+.flash {
+  margin-top: 60px;
+}
+
+.nav-destroy>input[type="submit"] {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: rgba(0, 0, 0, 0.5);
+  display: block;
+  padding: .5rem 0.5rem;
+}
+
+@media (min-width: 992px) .nav-destroy[type="submit"] {
+  padding-right: .5rem;
+  padding-lefft: .5rem;
+}
+
+.nav-destroy:hover>input[type="submit"] {
+  color: rgba(0, 0, 0, 0.7);
+}

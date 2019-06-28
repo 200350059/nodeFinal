@@ -9,12 +9,22 @@ nav.navbar.fixed-top.navbar-expand-lg.navbar-light.bg-light
         a.nav-link(href='/') Home
       li.nav-item
         a.nav-link(href='/about') About
-      li.nav-item.dropdown
-        a.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false') Acts
-        .dropdown-menu
-          a.dropdown-item(href='/acts') Acts
-          a.dropdown-item(href='/acts/new') New Act
-          a.dropdown-item(href='/acts/accomplished') Accomplished
-          a.dropdown-item(href='/acts/pendings') Pending
+      if isAuthenticated
+        li.nav-item.dropdown
+          a.nav-link.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false') Acts
+          .dropdown-menu
+            a.dropdown-item(href='/acts') Acts
+            a.dropdown-item(href='/acts/new') New Act
+            a.dropdown-item(href='/acts/accomplished') Accomplished
+            a.dropdown-item(href='/acts/pendings') Pending
+      if !isAuthenticated
+        li.nav-item
+          a.nav-link(href='/users/new') Register
+        li.nav-item
+          a.nav-link(href='/login') Login
+      if isAuthenticated
+        li.nav-item
+          form.nav-destroy(action=`/logout`, method="POST")
+            input.destroy(type="submit", value="Logout")
       li.nav-item
         a.nav-link(href='/contact') Contact
