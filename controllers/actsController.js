@@ -116,8 +116,6 @@ exports.destroy = (req, res) => {
   });
 };
 
-
-// To fil in later
 exports.pendings = (req, res) => {
   req.isAuthenticated();
 
