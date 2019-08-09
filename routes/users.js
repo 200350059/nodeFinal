@@ -5,7 +5,6 @@ const router = require('express').Router();
 const UsersController = require('../controllers/usersController');
 
 // Our routes
-router.get(`/new`, UsersController.new);
 router.post('/', UsersController.create);
 
 // We have to export our changes

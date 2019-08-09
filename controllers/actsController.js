@@ -1,87 +1,45 @@
 const Act = require('../models/act');
 
 exports.index = (req, res) => {
-  req.isAuthenticated();
-
-  Act.find({
-    user: req.session.userId
-  })
+ 
+  Act.find()
   .populate('user')
-    .then(acts => {
-      res.render('acts/index', {
-        acts: acts,
-        title: 'TO DO List'
-      });
-    })
-    .catch(err => {
-      req.flash('error', `ERROR: ${err}`);
-      res.redirect('/');
-    });
+    .then(acts => res.json(acts))
+    .catch(err => res.status(404).json(err));
 };
 
 exports.show = (req, res) => {
-  req.isAuthenticated();
-
+  
   Act.findOne({
-    _id: req.params.id,
-    user: req.session.userId
+    _id: req.params.id
   })
-  .then(act => {
-    res.render('acts/show', {
-      act: act,
-      title: act.title,
-    });
-  })
-  .catch(err => {
-    req.flash('error', `ERROR: ${err}`);
-    res.redirect('/');
-  });
-};
-
-exports.new = (req, res) => {
-  req.isAuthenticated();
-
-  res.render('acts/new', {
-    title: 'New Act Post'
-  });
+  .populate("user")
+  .then(acts => res.json(acts))
+    .catch(err => res.status(404).json(err));
 };
 
 exports.edit = (req, res) => {
-  req.isAuthenticated();
+  if (!req.isAuthenticated()) return res.status(404).send({ error: "Not authenticated" });
 
   Act.findOne({
     _id: req.params.id,
     user: req.session.userId
   })
-  .then(act => {
-    res.render('acts/edit', {
-      act: act,
-      title: act.title,
-    });
-  })
-  .catch(err => {
-    req.flash('error', `ERROR: ${err}`);
-    res.redirect('/');
-  });
+  .then(act => res.send(act))
+  .catch(err => res.status(404).send(err));
 };
 
 exports.create = (req, res) => {
-  req.isAuthenticated();
+  if (!req.isAuthenticated()) return res.status(404).send({ error: "Not authenticated" });
 
   req.body.act.user = req.session.userId;
   Act.create(req.body.act)
-    .then(() => {
-      req.flash('success', 'New activity was added successfully.');
-      res.redirect('/acts');
-    })
-    .catch(err => {
-      req.flash('error', `ERROR: ${err}`);
-      res.redirect('/acts/new');
-    });
+    .then(() => res.status(200).send({success: "Act created"}))
+    .catch(err => res.status(404).send(err));
 };
 
 exports.update = (req, res) => {
-  req.isAuthenticated();
+  if (!req.isAuthenticated()) return res.status(404).send({ error: "Not authenticated" });
 
   Act.updateOne({
     _id: req.body.id,
@@ -89,67 +47,18 @@ exports.update = (req, res) => {
   }, req.body.act, {
     runValidators: true
   })
-  .then(() => {
-    req.flash('success', 'The activity was updated successfully.');
-    res.redirect(`/acts/${req.body.id}`);
-  })
-  .catch(err => {
-    req.flash('error', `ERROR: ${err}`);
-    res.redirect(`/acts/${req.body.id}/edit`);
-  });
+  .then(() => res.status(200).send({success: "Act updated succesfully."}))
+  .catch(err => res.status(404).send(err));
 };
 
 exports.destroy = (req, res) => {
-  req.isAuthenticated();
+  if (!req.isAuthenticated()) return res.status(404).send({ error: "Not authenticated" });
 
   Act.deleteOne({
     _id: req.body.id,
     user: req.session.userId
   })
-  .then(() => {
-    req.flash('success', 'The activity was deleted successfully.');
-    res.redirect('/acts');
-  })
-  .catch(err => {
-    req.flash('error', `ERROR: ${err}`);
-    res.redirect(`/acts`);
-  });
+  .then(() => res.status(200).send({success: "Act deleted succesfully."}))
+  .catch(err => res.status(404).send(err));
 };
 
-exports.pendings = (req, res) => {
-  req.isAuthenticated();
-
-  Act.find({
-    user: req.session.userId
-  }).pendings()
-  .populate('user')
-    .then(acts => {
-      res.render('acts/index', {
-        acts: acts,
-        title: 'Pendings'
-      });
-    })
-    .catch(err => {
-      req.flash('error', `ERROR: ${err}`);
-      res.redirect('/');
-    });
-};
-
-exports.accomplished = (req, res) => {
-  req.isAuthenticated();
-  
-  Act.find({
-    user: req.session.userId
-  }).accomplished()
-  .populate('user')
-    .then(acts => {
-      res.render('acts/index', {
-        acts: acts,
-        title: 'Accomplished' 
-      });
-    })
-    .catch(err => {
-      req.flash('error', `ERROR: ${err}`);
-      res.redirect('/');
-    });
-};
