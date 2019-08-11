@@ -1,7 +1,6 @@
 const Act = require('../models/act');
 
 exports.index = (req, res) => {
- 
   Act.find()
   .populate('user')
     .then(acts => res.json(acts))

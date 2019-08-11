@@ -20,12 +20,14 @@ exports.authenticate = (req, res) => {
         });
       })
       .catch(err => {
-        res.json(err);
+        res.status(401).json(err);
       });
   };
 
   exports.logout = (req, res) => {
+    if (!req.isAuthenticated()) {
+      res.status(401).sen({ error: "Could not authenticate."});
+    }
     req.session.userId = null;
-    req.flash('success', 'You are logged out');
-    res.redirect('/');
+    res.clearCookie('token').status(200).send({success: "You are now logged out."}); 
   };

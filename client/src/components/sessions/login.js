@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Redirect } from "react-router-dom";
 import Axios from "axios";
+import NotificationContext from "../notification_context";
 
 function Login() {
   const [inputs, setInputs] = useState({});
   const [redirect, setRedirect] = useState(false);
+  const { setNotification } = useContext(NotificationContext);
 
   function handleSubmit(event) {
     event.preventDefault();
@@ -14,12 +16,25 @@ function Login() {
       password: inputs.password
     })
       .then((result) => {
-        setInputs({}); // clear the data
+        setNotification(notification => {
+            return {
+              ...notification,
+              status: "success",
+              message: "You have succesfully logged in"
+            };
+        });
+        setInputs({}); 
         sessionStorage.setItem('token', result.data.token);
         setRedirect(true);
       })
       .catch(err => {
-        console.log(err);
+        setNotification(notification => {
+          return {
+            ...notification,
+            status: "danger",
+            message: "There was an error"
+          };
+      });
       });
   }
 
