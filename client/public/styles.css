@@ -17,9 +17,10 @@ body,
   align-items: center;
 }
 
+
 .home-cta>h1 {
-  color: #fff;
-  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.5);
+  color:#fde039;
+  text-shadow:#fcfcfc;
   font-size: 5rem;
 }
 
@@ -65,4 +66,26 @@ body,
 
 .nav-destroy:hover>input[type="submit"] {
   color: rgba(0, 0, 0, .7);
+}
+
+/* Photo by Khadeeja Yasser on Unsplash */
+.sessions {
+  background: url('./images/sessions.jpg');
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Photo by Khadeeja Yasser on Unsplash */
+.act {
+  background: url('./images/act.jpg');
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

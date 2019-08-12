@@ -1,8 +1,6 @@
 import React from "react";
 
 function Home() {
-    console.log("Home");
-    
   return ( 
     <header className="home-cta">
       <h1>

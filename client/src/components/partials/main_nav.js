@@ -1,7 +1,20 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-function MainNav() {
+const stylesButton = {
+  backgroundColor: 'purple',
+    border: 'none',
+    color: 'white',
+    textAlign: 'center',
+    display: 'inline-block',
+    fontSize: '20px',
+    margin: '4px 4px',
+    cursor: 'pointer',
+    boxShadow: '0 9px 17px 0 rgba(0, 0, 0, 0.3), 0 7px 21px 0 rgba(0, 0, 0, 0.20)',
+    padding: '12px 30px',
+};
+
+function MainNav() { 
   return (
     <nav className="navbar fixed-top navbar-expand-lg navbar-light bg-light"><a className="navbar-brand" href="/">The Act</a><button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span className="navbar-toggler-icon"></span></button>
       <div
@@ -23,6 +36,6 @@ function MainNav() {
       </div>
     </nav>
   );
-}
+   }
 
 export default MainNav;
