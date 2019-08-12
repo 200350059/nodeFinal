@@ -1,0 +1,91 @@
+html,
+body,
+.App,
+#root {
+  height: 100%;
+  width: 100%;
+}
+
+/* (Photo by Mark Basarab on Unsplash - https://unsplash.com/photos/1OtUkD_8svc) */
+.home-cta {
+  background: url('./images/background.jpg');
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.home-cta>h1 {
+  color:#fde039;
+  text-shadow:#fcfcfc;
+  font-size: 5rem;
+}
+
+.content {
+  margin-top: 60px;
+}
+
+.destroy {
+  display: inline;
+}
+
+.destroy>input[type="submit"] {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: #007bff;
+}
+
+.destroy:hover>input[type="submit"] {
+  text-decoration: underline;
+}
+
+.container,
+.flash {
+  margin-top: 60px;
+}
+
+.nav-destroy>input[type="submit"] {
+  margin: 0;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: rgba(0, 0, 0, .5);
+  display: block;
+  padding: .5rem 0.5rem;
+}
+
+@media (min-width: 992px) .nav-destroy>input[type="submit"] {
+  padding-right: .5rem;
+  padding-left: .5rem;
+}
+
+.nav-destroy:hover>input[type="submit"] {
+  color: rgba(0, 0, 0, .7);
+}
+
+/* Photo by Khadeeja Yasser on Unsplash */
+.sessions {
+  background: url('./images/sessions.jpg');
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* Photo by Khadeeja Yasser on Unsplash */
+.act {
+  background: url('./images/act.jpg');
+  background-size: cover;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
