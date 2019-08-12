@@ -38,13 +38,13 @@ const stylesPage =  {
 const h1 = {
   color: 'white',
   textShadow: '#fcfcfc',
-  fontSize: '4rem',
+  fontSize: '3rem',
 }
 
 const stylesLabel = {
   color: 'White',
   textShadow: '#fcfcfc',
-  fontSize: '2rem',
+  fontSize: '1.5rem',
 }
 
 function Register() {
